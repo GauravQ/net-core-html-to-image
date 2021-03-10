@@ -5,15 +5,16 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Title>.NET Core HTML to Image Converter</Title>
     <Description>Convert HTML string or URL to image</Description>
-    <PackageProjectUrl>https://github.com/andrei-m-code/net-core-html-to-image</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/andrei-m-code/net-core-html-to-image</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/GauravQ/net-core-html-to-image</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/GauravQ/net-core-html-to-image</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>net-core html-to-image url-to-image net-standard</PackageTags>
     <PackageReleaseNotes>Linux support added</PackageReleaseNotes>
-    <Authors>andrei-m-code</Authors>
+    <Authors>Gaurav Gohel</Authors>
     <Copyright>© Free for all. Screw the people who commercialize such libraries</Copyright>
-    <Version>1.0.6</Version>
-    <PackageVersion>1.0.6</PackageVersion>
+    <Version>1.0.7</Version>
+    <PackageVersion>1.0.7</PackageVersion>
+    <Company>Gaurav Gohel</Company>
   </PropertyGroup>
 
   <ItemGroup>

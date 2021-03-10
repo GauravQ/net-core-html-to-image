@@ -17,6 +17,9 @@ namespace CoreHtmlToImage
         static HtmlConverter()
         {
             directory = AppContext.BaseDirectory;
+            var tempPath = Path.GetTempPath();
+            if (Directory.Exists(tempPath))
+                directory = tempPath;
 
             //Check on what platform we are
             if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
@@ -96,18 +99,26 @@ namespace CoreHtmlToImage
         /// <returns></returns>
         public byte[] FromUrl(string url, int width = 1024, ImageFormat format = ImageFormat.Jpg, int quality = 100)
         {
+            if (!url.Contains("://") && !url.EndsWith(".html"))
+            {
+                var str = File.ReadAllText(url);
+                return FromHtmlString(str, width, format, quality);
+            }
             var imageFormat = format.ToString().ToLower();
             var filename = Path.Combine(directory, $"{Guid.NewGuid().ToString()}.{imageFormat}");
 
             string args;
+            string widthStr = width >= 0 ? $"--width {width}" : "--width 0 --enable-smart-width";
+
+
 
             if (IsLocalPath(url))
             {
-                args = $"--quality {quality} --width {width} -f {imageFormat} \"{url}\" \"{filename}\"";
+                args = $"--quality {quality} {widthStr} -f {imageFormat} \"{url}\" \"{filename}\"";
             }
             else
             {
-                args = $"--quality {quality} --width {width} -f {imageFormat} {url} \"{filename}\"";
+                args = $"--quality {quality} {widthStr} -f {imageFormat} {url} \"{filename}\"";
             }
 
             Process process = Process.Start(new ProcessStartInfo(toolFilepath, args)
