@@ -12,19 +12,19 @@ namespace CoreHtmlToImage
     {
         private static string toolFilename = "wkhtmltoimage";
         private static string directory;
+        private static string baseDirectory;
         private static string toolFilepath;
 
         static HtmlConverter()
         {
-            directory = AppContext.BaseDirectory;
             var tempPath = Path.GetTempPath();
-            if (Directory.Exists(tempPath))
-                directory = tempPath;
+            baseDirectory = AppContext.BaseDirectory;
+            directory = Directory.Exists(tempPath) ? tempPath : AppContext.BaseDirectory;
 
             //Check on what platform we are
             if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
             {
-                toolFilepath = Path.Combine(directory, toolFilename + ".exe");
+                toolFilepath = Path.Combine(baseDirectory, toolFilename + ".exe");
 
                 if (!File.Exists(toolFilepath))
                 {
@@ -126,7 +126,7 @@ namespace CoreHtmlToImage
                 WindowStyle = ProcessWindowStyle.Hidden,
                 CreateNoWindow = true,
                 UseShellExecute = false,
-                WorkingDirectory = directory,
+                WorkingDirectory = baseDirectory,
                 RedirectStandardError = true
             });
 
